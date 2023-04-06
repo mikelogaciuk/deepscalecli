@@ -14,5 +14,25 @@ Process to directory that you wish to install it and type:
 git clone https://github.com/mikelogaciuk/deepscalecli.git 
 cd deepscalecli || exit
 chmod +x ./install.sh
+./install.sh
 ```
 
+## Usage
+
+To scale photography, use:
+
+```shell
+$ deepscalecli scale X
+```
+
+Where X is the size of up-scaling size.
+
+Only 2, 3 and 4 are currently available. 
+
+## Clean up
+
+In order to cleanup results folder, please type:
+
+```shell
+$ deepscalecli cleanup
+```
