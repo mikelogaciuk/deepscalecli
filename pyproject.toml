@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "deepscalecli"
+version = "0.1.0"
+description = ""
+authors = ["Mike Logaciuk <michal.logaciuk@hotmail.com>"]
+readme = "README.md"
+
+[tool.poetry.scripts]
+deepscalecli = "deepscalecli.main:app"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+typer = {extras = ["all"], version = "^0.9.0"}
+opencv-python = "^4.8.0.76"
+opencv-contrib-python = "^4.8.0.76"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
