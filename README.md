@@ -27,3 +27,6 @@ This is as simple as it could be.
 
 One function for scaling, one decorator for time measurement and one function for CLI.
 
+## Models
+
+All respective rights for models belong to their respective owners.
