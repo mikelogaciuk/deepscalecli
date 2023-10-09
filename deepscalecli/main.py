@@ -17,19 +17,21 @@ def callback():
     """
 
 
-
 @app.command(help="Scale an image using specific model and factor.\n\n"
                   "Example:\n"
                   "  deepscalecli scale --model=ESPCN --factor=2 --file=example.png\n")
 @chronometer
 def scale(model: Annotated[str, typer.Argument()],
           factor: Annotated[int, typer.Argument()],
-          file: Annotated[str, typer.Argument()]):
+          source: Annotated[str, typer.Argument()],
+          target: Annotated[str, typer.Argument()]
+          ):
     """
-    Scale an image using specific model and factor.
+    Scale images from specific directory using specific model and factor.
     :param model:
     :param factor:
-    :param file:
+    :param source:
+    :param target:
     :return: image
 
     Available models:
@@ -45,20 +47,36 @@ def scale(model: Annotated[str, typer.Argument()],
 
     model = model.upper() if model.lower() in ["espcn", "fsrcnn"] else "LapSRN"
 
-    current_directory = os.path.dirname(__file__)
+    current_directory = os.getcwd()
 
-    target_path = os.path.join(current_directory, f"results/{file}_{model}_x{factor}.jpg")
+    file_list = os.listdir(source)
     model_path = os.path.join(current_directory, f"models/{model}_x{factor}.pb")
-    image_path = os.path.join(current_directory, f"images/{file}")
 
-    image = cv2.imread(image_path)
+    if not os.path.exists(target):
+        os.makedirs(target)
 
-    sr = cv2.dnn_superres.DnnSuperResImpl_create()
-    sr.readModel(model_path)
-    sr.setModel(model.lower(), factor)
+    print(f"Found {len(file_list)} images in {source} directory")
 
-    result = sr.upsample(image)
+    for file in file_list:
 
-    cv2.imwrite(target_path, result)
+        file_path = f"{source}{file}"
 
-    print(f"Image saved at {target_path}")
+        print(f"Processing {file_path}...")
+
+        target_path = f"{target}/{model}_{factor}_{file}"
+
+        if os.path.exists(target_path):
+            print(f"Image {file} already processed")
+            continue
+
+        image = cv2.imread(file_path)
+
+        sr = cv2.dnn_superres.DnnSuperResImpl_create()
+        sr.readModel(model_path)
+        sr.setModel(model.lower(), factor)
+
+        result = sr.upsample(image)
+
+        cv2.imwrite(target_path, result)
+
+        print(f"Image saved at {target_path}")
