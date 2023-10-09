@@ -7,7 +7,8 @@ Simple image scaller, used to scale Dalle-E images from [OpenAI's DALL-E](https:
 ## Installation
 
 ```bash
-mkdirp -p ~/repos && cd ~/repos && git clone https://github.com/mikelogaciuk/deepscalecli.git & cd deepscalecli
+mkdirp -p ~/repos && cd ~/repos 
+git clone https://github.com/mikelogaciuk/deepscalecli.git & cd deepscalecli
 ```
 
 ```bash
