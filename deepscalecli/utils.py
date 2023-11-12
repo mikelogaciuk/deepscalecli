@@ -1,5 +1,7 @@
 from timeit import default_timer as timer
 from functools import wraps
+import random
+import string
 import base64
 
 
@@ -22,3 +24,19 @@ def chronometer(func):
 
         return result
     return wrapper
+
+
+def generate_key(size: int = 18):
+    """
+    Generates a random key with a specific size.
+    :param size:
+    :return:
+    """
+    val: str = ""
+
+    for i in range(size):
+        val += random.choice(string.ascii_letters)
+        for key in range(1):
+            val += str(random.randint(0, size))
+
+    return val

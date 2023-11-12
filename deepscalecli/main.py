@@ -1,4 +1,4 @@
-from deepscalecli.utils import chronometer
+from deepscalecli.utils import chronometer, generate_key
 from typing_extensions import Annotated
 from typing import Optional
 import typer
@@ -63,11 +63,12 @@ def scale(model: Annotated[str, typer.Argument()],
 
         print(f"Processing {file_path}...")
 
-        target_path = f"{target}/{model}_{factor}_{file}"
+        #target_path = f"{target}/{model}_{factor}_{file}"
+        target_path = f"{target}/{generate_key(28)}_{model}_{factor}.png"
 
-        if os.path.exists(target_path):
-            print(f"Image {file} already processed")
-            continue
+        # if os.path.exists(target_path):
+        #     print(f"Image {file} already processed")
+        #     continue
 
         image = cv2.imread(file_path)
 
